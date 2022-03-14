@@ -15,21 +15,9 @@ struct MovieDetailView: View {
         ZStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    MovieDetailHeaderView(movie: viewModel.movie, viewModel: viewModel)
+                    MovieDetailHeaderView(viewModel: viewModel)
                     MovieDetailActionsView(viewModel: viewModel)
-                    MovieDetailOverview(movie: viewModel.movie)
-                }
-            }
-            if showAlert {
-                VStack {
-                    Text("")
-                }
-                .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
-                .background(Color.red)
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        self.showAlert = false
-                    }
+                    MovieDetailOverview(viewModel: viewModel)
                 }
             }
         }
@@ -43,18 +31,20 @@ struct MovieDetailHeaderView: View {
         return UIScreen.main.bounds.width
     }
     
-    var movie: Movie
     var viewModel: MovieDetailViewModel
     
     var body: some View {
         ZStack {
             AsyncImage(
-                url: URL(string: "https://www.themoviedb.org/t/p/w220_and_h330_face\(movie.backdropPath ?? "")"),
+                url: viewModel.backgroundImageURL,
                 content: { image in
                     image
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: screenWidth, maxHeight: .infinity)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+                        .clipped()
                 },
                 placeholder: {
                     ProgressView()
@@ -69,7 +59,7 @@ struct MovieDetailHeaderView: View {
                 HStack {
                     VStack {
                         AsyncImage(
-                            url: URL(string: "https://www.themoviedb.org/t/p/w220_and_h330_face\(movie.posterPath ?? "")"),
+                            url: viewModel.posterPath,
                             content: { image in
                                 image
                                     .resizable()
@@ -81,7 +71,6 @@ struct MovieDetailHeaderView: View {
                             })
                             .padding()
                     }
-                    
                     VStack(alignment: .leading) {
                         HStack {
                             Image(systemName: "star")
@@ -89,12 +78,13 @@ struct MovieDetailHeaderView: View {
                         }.padding(.top, 2)
                         HStack {
                             Image(systemName: "clock")
-                            Text("\(movie.voteAverage ?? 0.0)/10 rating")
+                            Text(viewModel.voteAverage)
                         }.padding(.top, 2)
                         HStack {
                             Image(systemName: "calendar")
-                            Text("\(movie.releaseDate ?? "") released")
-                        }.padding(.top, 2)
+                            Text(viewModel.releaseDate)
+                        }
+                        .padding(.top, 2)
                     }
                     .font(Font.system(size: 16))
                     .padding()
@@ -117,13 +107,11 @@ struct MovieDetailGeneralInfo {
 }
 
 struct MovieDetailScore: View {
-    var movie: Movie
-    var score: Float {
-        return Float(movie.voteAverage ?? 0) / 10
-    }
+    @StateObject var viewModel: MovieDetailViewModel
+    
     var body: some View {
         HStack {
-            ProgressBar(progress: .constant(Float(score)))
+            ProgressBar(progress: .constant(viewModel.score))
                 .frame(width: 50, height: 50, alignment: .center)
             Text("User Score")
         }
@@ -139,13 +127,12 @@ struct MovieDetailActionsView: View {
     @StateObject var viewModel: MovieDetailViewModel
     
     var body: some View {
-        
         HStack {
             Button {
                 
             } label: {
                 Image(systemName: "heart")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
                 Text("Favorite")
             }
             
@@ -155,29 +142,36 @@ struct MovieDetailActionsView: View {
                 if viewModel.getLikeMovie() {
                     Image(systemName: "hand.thumbsup.fill")
                         .foregroundColor(.blue)
+                        .accessibilityIdentifier("likeFill")
                 } else {
                     Image(systemName: "hand.thumbsup")
                         .foregroundColor(.blue)
+                        .accessibilityIdentifier("likeNoFill")
                 }
-                
                 Text("Like")
-            }
+            }.accessibilityIdentifier("likeButton")
             
             Button {
-                
+                viewModel.setdislikeMovie()
             } label: {
-                Image(systemName: "hand.thumbsdown")
-                    .foregroundColor(.blue)
+                if viewModel.getdislikeMovie() {
+                    Image(systemName: "hand.thumbsdown.fill")
+                        .foregroundColor(.blue)
+                } else {
+                    Image(systemName: "hand.thumbsdown")
+                        .foregroundColor(.blue)
+                }
                 Text("Dislike")
             }
         }
+        .foregroundColor(.black)
         .frame(maxWidth: .infinity, maxHeight: 120, alignment: .center)
         .padding()
     }
 }
 
 struct MovieDetailOverview: View {
-    var movie: Movie
+    @StateObject var viewModel: MovieDetailViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -185,10 +179,10 @@ struct MovieDetailOverview: View {
                 .fontWeight(.bold)
                 .font(Font.system(size: 20))
             Spacer()
-            Text(movie.overview ?? "")
+            Text(viewModel.overview)
         }.padding()
         VStack {
-            MovieDetailScore(movie: movie)
+            MovieDetailScore(viewModel: viewModel)
         }
     }
 }

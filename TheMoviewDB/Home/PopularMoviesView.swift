@@ -33,7 +33,7 @@ struct PopularMoviesView: View {
                             }
                             .frame(minHeight: 300, maxHeight: 300, alignment: .center)
                             .padding()
-                        }
+                        }.accessibilityIdentifier("\(movie.id ?? 0)")
                     }
                 }
                 .searchable(text: $viewModel.searchText,
@@ -55,13 +55,13 @@ struct MovieCell: View {
             url: URL(string: "https://www.themoviedb.org/t/p/w220_and_h330_face\(imageURL)"),
             content: { image in
                 image.resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: 200, maxHeight: 300)
-                
+                    .frame(maxWidth: 150, maxHeight: 240)
+                    .scaledToFill()
             },
             placeholder: {
                 ProgressView()
-            }).padding()
+            })
+            .padding()
     }
 }
 

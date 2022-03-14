@@ -22,7 +22,8 @@ struct ProgressBar: View {
                 .stroke(style: StrokeStyle(lineWidth: 2.0, lineCap: .round, lineJoin: .round))
                 .foregroundColor(Color.green)
                 .rotationEffect(Angle(degrees: 270.0))
-            Text("40%")
+            Text("\(Int(self.progress*100))%")
+                                .font(.custom("HelveticaNeue", size: 18.0))
         }
     }
 }
