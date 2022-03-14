@@ -7,6 +7,16 @@
 
 import SwiftUI
 
+struct PopularMoviesLogo: View {
+    var body: some View {
+        VStack {
+            Image("logo db")
+                .resizable()
+                .frame(width: 120, height: 30, alignment: .leading)
+            .background(Color.clear)        }
+    }
+}
+
 struct PopularMoviesView: View {
     @StateObject var viewModel: PopularMoviesViewModel = PopularMoviesViewModel()
     
@@ -25,7 +35,8 @@ struct PopularMoviesView: View {
                                 MovieCell(imageURL: viewModel.getPosterPath(for: movie))
                                 VStack(spacing: 0) {
                                     Text(viewModel.getTitle(for: movie))
-                                        .font(Font.system(size: 16))
+                                        .foregroundColor(Color.gray)
+                                        .font(.bodyFont)
                                         .lineLimit(2)
                                     Spacer()
                                 }
@@ -39,6 +50,7 @@ struct PopularMoviesView: View {
                 .searchable(text: $viewModel.searchText,
                             prompt: "Search for a movie, tv show, person......")
                 .navigationTitle("What's Popular")
+                .accentColor(.red)
             }.onAppear {
                 self.viewModel.loadMovies()
             }
@@ -57,6 +69,10 @@ struct MovieCell: View {
                 image.resizable()
                     .frame(maxWidth: 150, maxHeight: 240)
                     .scaledToFill()
+                    .cornerRadius(20)
+                    .overlay(RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.white, lineWidth: 1))
+                    .shadow(radius: 6)
             },
             placeholder: {
                 ProgressView()

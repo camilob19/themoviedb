@@ -16,7 +16,7 @@ struct MovieDetailView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     MovieDetailHeaderView(viewModel: viewModel)
-                    MovieDetailActionsView(viewModel: viewModel)
+                    MovieDetailGeneralInfo(viewModel: viewModel)
                     MovieDetailOverview(viewModel: viewModel)
                 }
             }
@@ -53,41 +53,7 @@ struct MovieDetailHeaderView: View {
             VStack {
                 VStack {
                     Text(viewModel.title)
-                        .fontWeight(.bold)
-                        .font(Font.system(size: 28))
-                }
-                HStack {
-                    VStack {
-                        AsyncImage(
-                            url: viewModel.posterPath,
-                            content: { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 100, height: 200, alignment: .leading)
-                            },
-                            placeholder: {
-                                ProgressView()
-                            })
-                            .padding()
-                    }
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Image(systemName: "star")
-                            Text(viewModel.popularity)
-                        }.padding(.top, 2)
-                        HStack {
-                            Image(systemName: "clock")
-                            Text(viewModel.voteAverage)
-                        }.padding(.top, 2)
-                        HStack {
-                            Image(systemName: "calendar")
-                            Text(viewModel.releaseDate)
-                        }
-                        .padding(.top, 2)
-                    }
-                    .font(Font.system(size: 16))
-                    .padding()
+                        .font(.headerFont)
                 }
                 .padding()
             }
@@ -96,13 +62,58 @@ struct MovieDetailHeaderView: View {
     }
 }
 
-struct MovieDetailGeneralInfo {
-    var movie: Movie
+struct MovieDetailGeneralInfo: View {
+    var viewModel: MovieDetailViewModel
     
     var body: some View {
-        VStack {
-            
+        HStack {
+            VStack {
+                AsyncImage(
+                    url: viewModel.posterPath,
+                    content: { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 130, height: 200, alignment: .center)
+                            .cornerRadius(10)
+                                   .overlay(RoundedRectangle(cornerRadius: 10)
+                                       .stroke(Color.orange, lineWidth: 1))
+                                   .shadow(radius: 10)
+                    },
+                    placeholder: {
+                        ProgressView()
+                    })
+                    
+                    .padding()
+            }
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image(systemName: "star")
+                    Text(viewModel.popularity)
+                }
+                HStack {
+                    Image(systemName: "clock")
+                    Text(viewModel.voteAverage)
+                }
+                HStack {
+                    Image(systemName: "calendar")
+                    Text(viewModel.releaseDate)
+                }
+                HStack {
+                    MovieDetailActionsView(viewModel: viewModel)
+                }
+                .font(.normalFont)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
+            }
+            .padding(.top, 30)
+            .foregroundColor(Color.white)
+            .font(.bodyFont)
         }
+        
+        .padding(.top, -118)
+        .frame(maxWidth: .infinity, alignment: .top)
+        .background(Color.gray)
     }
 }
 
@@ -113,7 +124,7 @@ struct MovieDetailScore: View {
         HStack {
             ProgressBar(progress: .constant(viewModel.score))
                 .frame(width: 50, height: 50, alignment: .center)
-            Text("User Score")
+            Text(Localized.score)
         }
         .frame(
             maxWidth: .infinity,
@@ -122,51 +133,54 @@ struct MovieDetailScore: View {
     }
 }
 
+struct CenteredLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack {
+            configuration.icon
+            configuration.title
+        }
+    }
+}
+
 struct MovieDetailActionsView: View {
     
     @StateObject var viewModel: MovieDetailViewModel
     
     var body: some View {
-        HStack {
+        HStack(spacing: 20) {
             Button {
                 
             } label: {
-                Image(systemName: "heart")
-                    .foregroundColor(.red)
-                Text("Favorite")
+                Label(Localized.favorite, systemImage: "heart")
             }
             
             Button {
                 viewModel.setLikeMovie()
             } label: {
                 if viewModel.getLikeMovie() {
-                    Image(systemName: "hand.thumbsup.fill")
-                        .foregroundColor(.blue)
-                        .accessibilityIdentifier("likeFill")
+                    Label(Localized.like, systemImage: "hand.thumbsup.fill")
+                        .accessibilityIdentifier(Localized.idLikeFill)
                 } else {
-                    Image(systemName: "hand.thumbsup")
-                        .foregroundColor(.blue)
-                        .accessibilityIdentifier("likeNoFill")
+                    Label("Like", systemImage: "hand.thumbsup")
+                        .accessibilityIdentifier(Localized.idNoLikeFill)
                 }
-                Text("Like")
-            }.accessibilityIdentifier("likeButton")
+            }
+            .accessibilityIdentifier(Localized.likeButton)
             
             Button {
                 viewModel.setdislikeMovie()
             } label: {
                 if viewModel.getdislikeMovie() {
-                    Image(systemName: "hand.thumbsdown.fill")
-                        .foregroundColor(.blue)
+                    Label(Localized.dislike, systemImage: "hand.thumbsdown.fill")
                 } else {
-                    Image(systemName: "hand.thumbsdown")
-                        .foregroundColor(.blue)
+                    Label(Localized.dislike, systemImage: "hand.thumbsdown")
                 }
-                Text("Dislike")
             }
         }
-        .foregroundColor(.black)
-        .frame(maxWidth: .infinity, maxHeight: 120, alignment: .center)
-        .padding()
+        .labelStyle(CenteredLabelStyle())
+        .foregroundColor(.white)
+        .padding(.top, 30)
+        Spacer()
     }
 }
 
@@ -175,12 +189,12 @@ struct MovieDetailOverview: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Overview")
-                .fontWeight(.bold)
-                .font(Font.system(size: 20))
+            Text(Localized.overview)
+                .font(.titleFont)
             Spacer()
             Text(viewModel.overview)
-        }.padding()
+        }
+        .padding()
         VStack {
             MovieDetailScore(viewModel: viewModel)
         }

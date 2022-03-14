@@ -20,23 +20,23 @@ import SwiftUI
         let popularity = movie.popularity ?? 0.0
         switch popularity {
         case let x where x > 1:
-            return String(format: " %.0f reviews", movie.popularity ?? 0.0)
+            return String(format: Localized.formatReviews, movie.popularity ?? 0.0)
         case let x where x == 1:
-            return String(format: " %.0f reviews",movie.popularity ?? 0.0)
+            return String(format: Localized.formatReviews, movie.popularity ?? 0.0)
         case let x where x == 0:
-            return "No reviews"
+            return Localized.noReviews
         default:
-            return "No reviews"
+            return Localized.noReviews
         }
     }
     
     nonisolated var voteAverage: String {
-        let formatted = String(format: " %.1f rating", movie.voteAverage ?? 0.0)
+        let formatted = String(format: Localized.formatRating, movie.voteAverage ?? 0.0)
         return formatted
     }
     
     nonisolated var releaseDate: String {
-        "\(movie.releaseDate ?? "") released"
+        "\(movie.releaseDate ?? "") \(Localized.released)"
     }
     
     nonisolated var backgroundImageURL: URL? {
@@ -57,7 +57,7 @@ import SwiftUI
     
     @AppStorage var likedMovieInfo: Bool
     @AppStorage var dislikedMovieInfo: Bool
-    @AppStorage("favorites") var favorites: [Int] = []
+    @AppStorage(Localized.keyFavorites) var favorites: [Int] = []
     
     init(movie: Movie) {
         self.movie = movie
@@ -69,7 +69,7 @@ import SwiftUI
         let id = movie.id ?? 0
         
         if favorites.contains(id),
-            let index = favorites.firstIndex(of: id) {
+           let index = favorites.firstIndex(of: id) {
             favorites.remove(at: index)
         } else {
             favorites.append(movie.id ?? 0)
@@ -111,7 +111,7 @@ extension Array: RawRepresentable where Element: Codable {
         }
         self = result
     }
-        
+    
     public var rawValue: String {
         guard let data = try? JSONEncoder().encode(self),
               let result = String(data: data, encoding: .utf8)

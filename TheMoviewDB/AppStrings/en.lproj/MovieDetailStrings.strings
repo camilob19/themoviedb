@@ -1,0 +1,23 @@
+/* 
+  MovieDetailStrings.strings
+  TheMoviewDB
+
+  Created by Camilo Betancourt on 14/03/22.
+  
+*/
+
+"format_reviews" = " %.0f reviews";
+"format_rating" = " %.1f rating";
+"no_reviews" = "No reviews";
+"released" = "released";
+"key_favorites" = "favorites";
+"liked_movie" = "LikedMovie";
+"disliked_movie" = "disLikedMovie";
+"favorite" = "Favorite";
+"like" = "Like";
+"dislike" = "Dislike";
+"overview" = "Overview";
+"score" = "Score";
+"id_like_fill" = "likeFill";
+"id_no_like" = "likeNoFill";
+"like_button" = "likeButton";

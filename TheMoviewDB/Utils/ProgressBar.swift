@@ -23,7 +23,7 @@ struct ProgressBar: View {
                 .foregroundColor(Color.green)
                 .rotationEffect(Angle(degrees: 270.0))
             Text("\(Int(self.progress*100))%")
-                                .font(.custom("HelveticaNeue", size: 18.0))
+                .font(.bodyFont)
         }
     }
 }
