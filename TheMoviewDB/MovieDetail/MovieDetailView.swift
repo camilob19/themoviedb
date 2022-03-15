@@ -90,14 +90,14 @@ struct MovieDetailGeneralInfo: View {
                             .scaledToFit()
                             .frame(width: 130, height: 200, alignment: .center)
                             .cornerRadius(10)
-                                   .overlay(RoundedRectangle(cornerRadius: 10)
-                                       .stroke(Color.orange, lineWidth: 1))
-                                   .shadow(radius: 10)
+                            .overlay(RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.orange, lineWidth: 1))
+                            .shadow(radius: 10)
                     },
                     placeholder: {
                         ProgressView()
                     })
-                    
+                
                     .padding()
             }
             VStack(alignment: .leading, spacing: 10) {
@@ -165,7 +165,11 @@ struct MovieDetailActionsView: View {
             Button {
                 viewModel.setFavorites()
             } label: {
-                Label(Localized.favorite, systemImage: "heart")
+                if viewModel.isFavorite() {
+                    Label(Localized.favorite, systemImage: "heart.fill")
+                } else {
+                    Label(Localized.favorite, systemImage: "heart")
+                }
             }
             
             Button {

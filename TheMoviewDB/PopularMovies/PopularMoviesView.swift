@@ -32,24 +32,23 @@ struct PopularMoviesView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.filteredMovies.results, id: \.id) { movie in
                         NavigationLink(destination: MovieDetailView(viewModel: viewModel.createModel(for: movie))) {
-                            VStack {
+                            ZStack {
                                 MovieCell(imageURL: viewModel.getPosterPath(for: movie))
                                 VStack {
                                     Text(viewModel.getTitle(for: movie))
-                                        .padding()
                                         .foregroundColor(Color.gray)
                                         .font(.bodyFont)
                                         .lineLimit(2)
+                                        .padding()
+                                        .padding(.top, -46)
                                     Spacer()
                                 }
-                                .padding(.top, -30)
                             }
-                            .frame(minHeight: 250, maxHeight: 250, alignment: .center)
+                            .frame(minHeight: 200, maxHeight: 300, alignment: .center)
                             .frame(minWidth: 200, maxWidth: 200, alignment: .center)
-                            .padding()
+                            .padding(.top, 30)
                         }.accessibilityIdentifier("\(movie.id ?? 0)")
                     }
-                        .padding()
                 }
                 .searchable(text: $viewModel.searchText,
                             prompt: Localized.placeholderSearch)
