@@ -55,14 +55,12 @@ import SwiftUI
         movie.overview ?? ""
     }
     
-    @AppStorage var likedMovieInfo: Bool
-    @AppStorage var dislikedMovieInfo: Bool
-    @AppStorage(Localized.keyFavorites) var favorites: [Int] = []
+    @AppStorage("LikedMovie") var likes: [Int] = []
+    @AppStorage("DislikedMovie") var dislikes: [Int] = []
+    @AppStorage("favorites") var favorites: [Int] = []
     
     init(movie: Movie) {
         self.movie = movie
-        self._likedMovieInfo = AppStorage(wrappedValue: false, "LikedMovie\(movie.id ?? 0)")
-        self._dislikedMovieInfo = AppStorage(wrappedValue: false, "disLikedMovie\(movie.id ?? 0)")
     }
     
     func setFavorites() {
@@ -84,40 +82,38 @@ import SwiftUI
     }
     
     func setLikeMovie() {
-        likedMovieInfo.toggle()
+        let id = movie.id ?? 0
+        
+        if likes.contains(id),
+           let index = likes.firstIndex(of: id) {
+            likes.remove(at: index)
+        } else {
+            likes.append(movie.id ?? 0)
+        }
+        
         self.objectWillChange.send()
     }
     
     func getLikeMovie() -> Bool {
-        return likedMovieInfo
+        let id = movie.id ?? 0
+        return likes.contains(id)
     }
     
-    func setdislikeMovie() {
-        dislikedMovieInfo.toggle()
+    func setDislikeMovie() {
+        let id = movie.id ?? 0
+        
+        if dislikes.contains(id),
+           let index = dislikes.firstIndex(of: id) {
+            dislikes.remove(at: index)
+        } else {
+            dislikes.append(movie.id ?? 0)
+        }
+        
         self.objectWillChange.send()
     }
     
     func getdislikeMovie() -> Bool {
-        return dislikedMovieInfo
-    }
-}
-
-extension Array: RawRepresentable where Element: Codable {
-    public init?(rawValue: String) {
-        guard let data = rawValue.data(using: .utf8),
-              let result = try? JSONDecoder().decode([Element].self, from: data)
-        else {
-            return nil
-        }
-        self = result
-    }
-    
-    public var rawValue: String {
-        guard let data = try? JSONEncoder().encode(self),
-              let result = String(data: data, encoding: .utf8)
-        else {
-            return "[]"
-        }
-        return result
+        let id = movie.id ?? 0
+        return dislikes.contains(id)
     }
 }

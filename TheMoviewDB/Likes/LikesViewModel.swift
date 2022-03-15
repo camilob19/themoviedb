@@ -1,24 +1,22 @@
 //
-//  PopularMoviesViewModel.swift
+//  LikesViewModel.swift
 //  TheMoviewDB
 //
-//  Created by Camilo Betancourt on 9/03/22.
+//  Created by Camilo Betancourt on 14/03/22.
 //
-
-import Foundation
 import SwiftUI
 import Combine
 
-@MainActor protocol PopularMoviesViewModelProtocol {
+@MainActor protocol LikesViewModelProtocol {
     var movies: Movies { get }
     var filteredMovies: Movies { get }
     var searchText: String { get set }
     func loadMovies()
 }
 
-@MainActor class PopularMoviesViewModel: PopularMoviesViewModelProtocol, ObservableObject {
+@MainActor class LikesViewModel: LikesViewModelProtocol, ObservableObject {
     
-    let manager: PopularMoviesManagerProtocol
+    let repository: PopularMoviesRepositoryProtocol
     
     @Published var movies: Movies = Movies()
     @Published var filteredMovies: Movies = Movies()
@@ -29,9 +27,10 @@ import Combine
             } else {
                 self.filteredMovies.results = movies.results.filter({$0.title?.contains(searchText) ?? false })
             }
-            
         }
     }
+    
+    @AppStorage("LikedMovie") var likes: [Int] = []
     
     func  getPosterPath(for movie: Movie) -> String {
         movie.posterPath ?? ""
@@ -41,8 +40,8 @@ import Combine
         movie.title ?? ""
     }
     
-    init(manager: PopularMoviesManagerProtocol = PopularMoviesManager()) {
-        self.manager = manager
+    init(repository: PopularMoviesRepositoryProtocol = PopularMoviesRepository()) {
+        self.repository = repository
     }
     
     func createModel(for movie: Movie) -> MovieDetailViewModel {
@@ -51,13 +50,18 @@ import Combine
     
     /// Main method call when the view appears
     func loadMovies() {
-        self.getMovies().assign(to: &self.$movies)
+        self.getMovies().map({ movies in
+            var newMovies = movies
+            newMovies.results = movies.results.filter { self.likes.contains($0.id ?? 0) }
+            return newMovies
+        }).assign(to: &self.$movies)
         $movies.assign(to: &self.$filteredMovies)
     }
     
     /// Gets the list movies information from service
     /// - Returns: Returns a publisher that never send error, on uscceess it will send `Movies` entity
     private func getMovies() -> AnyPublisher<Movies, Never> {
-        return manager.getMovies()
+        return repository.getMovies()
     }
 }
+

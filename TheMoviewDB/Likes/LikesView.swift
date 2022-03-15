@@ -1,24 +1,14 @@
 //
-//  PopularMoviesView.swift
+//  LikesView.swift
 //  TheMoviewDB
 //
-//  Created by Camilo Betancourt on 10/03/22.
+//  Created by Camilo Betancourt on 14/03/22.
 //
 
 import SwiftUI
 
-struct PopularMoviesLogo: View {
-    var body: some View {
-        VStack {
-            Image("logo db")
-                .resizable()
-                .frame(width: 120, height: 30, alignment: .leading)
-            .background(Color.clear)        }
-    }
-}
-
-struct PopularMoviesView: View {
-    @StateObject var viewModel: PopularMoviesViewModel = PopularMoviesViewModel()
+struct LikesView: View {
+    @StateObject var viewModel: LikesViewModel = LikesViewModel()
     
     var columns: [GridItem] = [
         GridItem(.flexible()),
@@ -49,7 +39,7 @@ struct PopularMoviesView: View {
                 }
                 .searchable(text: $viewModel.searchText,
                             prompt: "Search for a movie, tv show, person......")
-                .navigationTitle("What's Popular")
+                .navigationTitle("Likes")
                 .accentColor(.red)
             }.onAppear {
                 self.viewModel.loadMovies()
@@ -60,29 +50,8 @@ struct PopularMoviesView: View {
     }
 }
 
-struct MovieCell: View {
-    var imageURL: String
-    var body: some View {
-        AsyncImage(
-            url: URL(string: "https://www.themoviedb.org/t/p/w220_and_h330_face\(imageURL)"),
-            content: { image in
-                image.resizable()
-                    .frame(maxWidth: 150, maxHeight: 240)
-                    .scaledToFill()
-                    .cornerRadius(20)
-                    .overlay(RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.white, lineWidth: 1))
-                    .shadow(radius: 6)
-            },
-            placeholder: {
-                ProgressView()
-            })
-            .padding()
-    }
-}
-
-struct PopularMoviesView_Previews: PreviewProvider {
+struct LikesView_Previews: PreviewProvider {
     static var previews: some View {
-        PopularMoviesView()
+        LikesView()
     }
 }

@@ -8,6 +8,11 @@
 import Foundation
 
 struct Localized {
+    //TabView
+    static let popularText = "popular".localized()
+    static let favoriteText = "favorites".localized()
+    static let likeText = "like".localized()
+    
     //Popular Movies
     static let placeholderSearch = "placeholder_search".localized()
     static let navigationTitle = "navigation_title".localized()
@@ -28,4 +33,5 @@ struct Localized {
     static let idLikeFill = "id_like_fill".localized()
     static let idNoLikeFill = "id_no_like_fill".localized()
     static let likeButton = "like_button".localized()
+    static let goBack = "go_back".localized()
 }

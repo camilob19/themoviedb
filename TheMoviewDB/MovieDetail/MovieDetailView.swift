@@ -9,19 +9,33 @@ import SwiftUI
 
 struct MovieDetailView: View {
     @StateObject var viewModel: MovieDetailViewModel
-    @State var showAlert: Bool = false
+    @StateObject var network = Network()
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    MovieDetailHeaderView(viewModel: viewModel)
-                    MovieDetailGeneralInfo(viewModel: viewModel)
-                    MovieDetailOverview(viewModel: viewModel)
+            if network.connected {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        MovieDetailHeaderView(viewModel: viewModel)
+                        MovieDetailGeneralInfo(viewModel: viewModel)
+                        MovieDetailOverview(viewModel: viewModel)
+                    }
+                }
+            } else {
+                Button(Localized.goBack) {
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
+            
         }
         .edgesIgnoringSafeArea(.all)
+        .onAppear {
+            network.checkConnection()
+        }.onDisappear {
+            network.cancelConnection()
+        }
     }
 }
 
@@ -88,15 +102,15 @@ struct MovieDetailGeneralInfo: View {
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Image(systemName: "star")
+                    ImageAsset.MovieDetail.starIcon
                     Text(viewModel.popularity)
                 }
                 HStack {
-                    Image(systemName: "clock")
+                    ImageAsset.MovieDetail.clockIcon
                     Text(viewModel.voteAverage)
                 }
                 HStack {
-                    Image(systemName: "calendar")
+                    ImageAsset.MovieDetail.calendarIcon
                     Text(viewModel.releaseDate)
                 }
                 HStack {
@@ -108,12 +122,12 @@ struct MovieDetailGeneralInfo: View {
             }
             .padding(.top, 30)
             .foregroundColor(Color.white)
-            .font(.bodyFont)
+            .font(.normalFont)
         }
         
         .padding(.top, -118)
         .frame(maxWidth: .infinity, alignment: .top)
-        .background(Color.gray)
+        .background(Color.madison)
     }
 }
 
@@ -149,7 +163,7 @@ struct MovieDetailActionsView: View {
     var body: some View {
         HStack(spacing: 20) {
             Button {
-                
+                viewModel.setFavorites()
             } label: {
                 Label(Localized.favorite, systemImage: "heart")
             }
@@ -161,14 +175,14 @@ struct MovieDetailActionsView: View {
                     Label(Localized.like, systemImage: "hand.thumbsup.fill")
                         .accessibilityIdentifier(Localized.idLikeFill)
                 } else {
-                    Label("Like", systemImage: "hand.thumbsup")
+                    Label(Localized.like, systemImage: "hand.thumbsup")
                         .accessibilityIdentifier(Localized.idNoLikeFill)
                 }
             }
             .accessibilityIdentifier(Localized.likeButton)
             
             Button {
-                viewModel.setdislikeMovie()
+                viewModel.setDislikeMovie()
             } label: {
                 if viewModel.getdislikeMovie() {
                     Label(Localized.dislike, systemImage: "hand.thumbsdown.fill")
@@ -178,8 +192,9 @@ struct MovieDetailActionsView: View {
             }
         }
         .labelStyle(CenteredLabelStyle())
+        .font(.normalFont)
         .foregroundColor(.white)
-        .padding(.top, 30)
+        .padding(.top, 40)
         Spacer()
     }
 }

@@ -6,19 +6,25 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
-extension UIImageAsset {
+struct ImageAsset {
+    struct TabView {
+        static let houseIcon = Image(systemName: "house.fill")
+        static let heartIcon = Image(systemName: "suit.heart.fill")
+        static let handIcon = Image(systemName: "hand.thumbsup")
+    }
+    
     struct PopularMovies {
-        static let logoDB = UIImage(named: "logo db")
+        static let logoDB = Image("logo db")
     }
     
     struct MovieDetail {
-        static let starIcon = UIImage(named: "star")
-        static let clockIcon = UIImage(named: "clock")
-        static let calendarIcon = UIImage(named: "calendar")
-        static let heartIcon = UIImage(named: "heart")
-        static let handFilledIcon = UIImage(named:" hand.thumbsup.fill")
-        static let handIcon = UIImage(named: "hand.thumbsup")
+        static let starIcon = Image(systemName: "star")
+        static let clockIcon = Image(systemName: "clock")
+        static let calendarIcon = Image(systemName: "calendar")
+        static let heartIcon = Image(systemName: "heart")
+        static let handFilledIcon = Image(systemName: "hand.thumbsup.fill")
+        static let handIcon = Image(systemName: "hand.thumbsup")
     }
 }

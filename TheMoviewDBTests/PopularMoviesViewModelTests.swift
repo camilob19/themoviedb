@@ -22,7 +22,6 @@ class PopularMoviesViewModelTests: XCTestCase {
         XCTAssertEqual(SUT.movies.results.count, 2)
     }
     
-    
     @MainActor func test_filterMovies_successfull() {
         let SUT = makeSUT()
         SUT.loadMovies()
@@ -33,12 +32,11 @@ class PopularMoviesViewModelTests: XCTestCase {
     }
     
     @MainActor func makeSUT() -> PopularMoviesViewModel {
-        return PopularMoviesViewModel(manager: FakeManager())
+        return PopularMoviesViewModel(repository: FakeRepository())
     }
 }
 
-
-private class FakeManager: PopularMoviesManagerProtocol {
+private class FakeRepository: PopularMoviesRepositoryProtocol {
     
     var fakeMovies: Movies {
         var movies = Movies()

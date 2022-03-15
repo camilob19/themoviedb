@@ -1,16 +1,25 @@
 /* 
-  MovieDetailStrings.strings
+  GeneralStrings.strings
   TheMoviewDB
 
   Created by Camilo Betancourt on 14/03/22.
   
 */
 
+//TabViewStrings
+"popular" = "Popular";
+"favorites" = "Favorites";
+"like" = "Like";
+
+//PopularMovies
+"placeholder_search" = "Search for a movie, tv show, person......";
+"navigation_title" = "What's Popular";
+
+//MovieDetail
 "format_reviews" = " %.0f reviews";
 "format_rating" = " %.1f rating";
 "no_reviews" = "No reviews";
 "released" = "released";
-"key_favorites" = "favorites";
 "liked_movie" = "LikedMovie";
 "disliked_movie" = "disLikedMovie";
 "favorite" = "Favorite";
@@ -21,3 +30,5 @@
 "id_like_fill" = "likeFill";
 "id_no_like" = "likeNoFill";
 "like_button" = "likeButton";
+"go_back" = "Go back";
+
