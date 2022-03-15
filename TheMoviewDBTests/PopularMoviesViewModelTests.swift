@@ -70,9 +70,7 @@ private class FakeRepository: PopularMoviesRepositoryProtocol {
                   video: true,
                   voteAverage: 5.5,
                   voteCount: 1000)
-        
         ]
-        
         return movies
     }
     

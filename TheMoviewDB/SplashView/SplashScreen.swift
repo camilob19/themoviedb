@@ -8,44 +8,47 @@
 import SwiftUI
 
 struct SplashScreen: View {
+    @State var isActive : Bool = false
+    @State private var size = 0.8
+    @State private var opacity = 0.5
     
-    @State var animate = false
-    @State var endSplash = false
-    
+    // Customise your SplashScreen here
     var body: some View {
-        ZStack {
+        if isActive {
             HomeTabBar()
-            ZStack {
-                Image("logo")
-                    .resizable()
-                    .renderingMode(.original)
-                    .aspectRatio(contentMode: animate ? .fill : .fill)
-                    .frame(width: animate ? nil : 300,
-                           height: animate ? nil : 200,
-                           alignment: .center)
-                
-                    .scaleEffect(animate ? 3 : 1)
-                    .frame(width: UIScreen.main.bounds.width)
+        } else {
+            VStack {
+                VStack {
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.red)
+                    Text("Welcome")
+                        .padding()
+                        .font(Font.headerFont)
+                        .foregroundColor(.black.opacity(0.80))
+                }
+                .scaleEffect(size)
+                .opacity(opacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 1.5)) {
+                        self.size = 1
+                        self.opacity = 1.00
+                    }
+                }
             }
-            .ignoresSafeArea(.all, edges: .all)
-            .onAppear(perform: animateSplash)
-            .opacity(endSplash ? 0 : 1)
-        }
-    }
-    
-    func animateSplash() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            withAnimation(Animation.easeOut(duration: 0.45)) {
-                animate.toggle()
-            }
-            withAnimation(Animation.linear(duration: 0.30)) {
-                endSplash.toggle()
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    withAnimation {
+                        self.isActive = true
+                    }
+                }
             }
         }
     }
 }
 
-struct SplashScreen_Previews: PreviewProvider {
+struct SplashScreenView_Previews: PreviewProvider {
     static var previews: some View {
         SplashScreen()
     }

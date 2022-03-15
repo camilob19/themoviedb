@@ -1,5 +1,5 @@
 //
-//  HomeScreen.swift
+//  HomeScreenUITests.swift
 //  TheMoviewDBUITests
 //
 //  Created by Camilo Betancourt on 12/03/22.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class HomeScreen: XCTestCase {
+class HomeScreenUITests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
@@ -52,5 +52,4 @@ class HomeScreen: XCTestCase {
         
         XCTAssertTrue(app.staticTexts["Overview"].exists)
     }
-
 }

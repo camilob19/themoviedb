@@ -14,9 +14,7 @@
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
-		<string>background</string>
-		<key>UIImageName</key>
-		<string>logo</string>
+		<string></string>
 	</dict>
 </dict>
 </plist>
