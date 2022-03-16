@@ -82,7 +82,7 @@ struct MovieCell: View {
 
 struct ScoreMovie: View {
     @State var score: Float
-
+    
     var body: some View {
         ProgressBar(progress: $score)
             .frame(width: 30, height: 30)

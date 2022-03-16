@@ -8,14 +8,14 @@
 import XCTest
 
 class MovieDetailUITests: XCTestCase {
-
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
-
+    
     override func tearDownWithError() throws {
     }
-
+    
     func testLikeSuccess() throws {
         let app = XCUIApplication()
         app.launch()
@@ -29,6 +29,5 @@ class MovieDetailUITests: XCTestCase {
         app.buttons["likeButton"].tap()
         
         XCTAssertTrue(app.images["likeFill"].exists)
-        
     }
 }

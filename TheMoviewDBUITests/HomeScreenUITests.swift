@@ -8,11 +8,11 @@
 import XCTest
 
 class HomeScreenUITests: XCTestCase {
-
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
-
+    
     func testSearch() throws {
         let app = XCUIApplication()
         app.launch()

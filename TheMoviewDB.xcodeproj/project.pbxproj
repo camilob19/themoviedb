@@ -207,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				C89213B627DCED5000E5539A /* Info.plist */,
+				C892137A27D992F300E5539A /* Assets.xcassets */,
 				C83429DE27DFAF4C00AFD71F /* AppStrings */,
 				C89213A827D9ACDB00E5539A /* Utils */,
 				C83429DB27DEEB2C00AFD71F /* Extensions */,
@@ -217,7 +218,6 @@
 				C83429FF27DFF92600AFD71F /* Likes */,
 				C83429FA27DFF5AD00AFD71F /* Favorites */,
 				C892137627D992F100E5539A /* TheMoviewDBApp.swift */,
-				C892137A27D992F300E5539A /* Assets.xcassets */,
 				C892137F27D992F300E5539A /* Persistence.swift */,
 				C892138127D992F300E5539A /* TheMoviewDB.xcdatamodeld */,
 				C892137C27D992F300E5539A /* Preview Content */,

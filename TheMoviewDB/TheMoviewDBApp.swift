@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct TheMoviewDBApp: App {
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
             SplashScreen()
