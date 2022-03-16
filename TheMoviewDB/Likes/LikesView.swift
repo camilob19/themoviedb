@@ -53,6 +53,29 @@ struct LikesView: View {
     }
 }
 
+struct CustomNavBar: View {
+    var body: some View {
+        NavigationView {
+            ZStack {
+                VStack {
+                    Color.madison
+                        .frame(height: 100)
+                        .edgesIgnoringSafeArea(.all)
+                    Spacer()
+                }
+                VStack {
+                    ImageAsset.PopularMovies.logoDark
+                        .resizable()
+                        .padding(.top, 20)
+                        .frame(width: 170, height: 100)
+                        .edgesIgnoringSafeArea(.all)
+                    Spacer()
+                }
+            }
+        }
+    }
+}
+
 struct LikesView_Previews: PreviewProvider {
     static var previews: some View {
         LikesView(viewModel: LikesViewModel())

@@ -59,6 +59,7 @@ struct MovieDetailHeaderView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                         .clipped()
+                        .background(Color.red)
                 },
                 placeholder: {
                     ProgressView()
@@ -126,21 +127,6 @@ struct MovieDetailGeneralInfo: View {
         .padding(.top, -118)
         .frame(maxWidth: .infinity, alignment: .top)
         .background(Color.madison)
-    }
-}
-
-struct MovieDetailScore: View {
-    @StateObject var viewModel: MovieDetailViewModel
-    
-    var body: some View {
-        HStack {
-            ProgressBar(progress: .constant(viewModel.score))
-                .frame(width: 50, height: 50, alignment: .center)
-        }
-        .frame(
-            maxWidth: .infinity,
-            alignment: .center
-        )
     }
 }
 
@@ -229,9 +215,6 @@ struct MovieDetailOverview: View {
             Text(viewModel.overview)
         }
         .padding()
-        VStack {
-            MovieDetailScore(viewModel: viewModel)
-        }
     }
 }
 

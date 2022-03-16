@@ -16,9 +16,8 @@ struct PopularMoviesView: View {
     ]
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                CustomNavBar()
+        ZStack {
+            NavigationView {
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.filteredMovies.results, id: \.id) { movie in
@@ -35,7 +34,7 @@ struct PopularMoviesView: View {
                                         Spacer()
                                     }
                                     VStack {
-                                        ScoreMovie()
+                                        ScoreMovie(score: viewModel.getScore(for: movie))
                                     }
                                 }
                                 .frame(minHeight: 200, maxHeight: 300, alignment: .center)
@@ -81,40 +80,15 @@ struct MovieCell: View {
     }
 }
 
-struct CustomNavBar: View {
-    var body: some View {
-        NavigationView {
-            ZStack {
-                VStack {
-                    Color.madison
-                        .frame(height: 100)
-                        .edgesIgnoringSafeArea(.all)
-                    Spacer()
-                }
-                VStack {
-                    ImageAsset.PopularMovies.logoDark
-                        .resizable()
-                        .frame(width: 200, height: 100)
-                        .edgesIgnoringSafeArea(.all)
-                    Spacer()
-                }
-            }
-        }
-    }
-}
-
 struct ScoreMovie: View {
-   // @StateObject var viewModel: PopularMoviesViewModel
-    
+    @State var score: Float
+
     var body: some View {
-        //ProgressBar(progress: $viewModel.$movies)
-        ImageAsset.PopularMovies.logoDark
-            .resizable()
-            .clipShape(Circle())
-            .frame(width: 40, height: 40)
+        ProgressBar(progress: $score)
+            .frame(width: 30, height: 30)
             .padding(.bottom, 230)
-            .padding(.trailing, 20)
-           
+            .padding(.trailing, 25)
+        
             .frame(
                 maxWidth: .infinity,
                 alignment: .trailing
