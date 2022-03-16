@@ -19,7 +19,7 @@ struct PopularMoviesView: View {
         NavigationView {
             ZStack {
                 CustomNavBar()
-                ScrollView {
+                ScrollView(.vertical, showsIndicators: false) {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.filteredMovies.results, id: \.id) { movie in
                             NavigationLink(destination: MovieDetailView(viewModel: viewModel.createModel(for: movie))) {

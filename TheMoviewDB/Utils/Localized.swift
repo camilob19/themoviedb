@@ -30,7 +30,6 @@ struct Localized {
     static let like = "like".localized()
     static let dislike = "dislike".localized()
     static let overview = "overview".localized()
-    static let score = "score".localized()
     static let idLikeFill = "id_like_fill".localized()
     static let idNoLikeFill = "id_no_like_fill".localized()
     static let likeButton = "like_button".localized()

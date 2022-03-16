@@ -9,9 +9,6 @@ import XCTest
 import Combine
 @testable import TheMovieDB
 
-// se debe llenar movies del servicio
-// se debe filtrar filteredMovies cuando searchText cambie
-
 class PopularMoviesViewModelTests: XCTestCase {
 
     @MainActor func test_loadService_successfull() {

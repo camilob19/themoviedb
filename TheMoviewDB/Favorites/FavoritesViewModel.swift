@@ -49,7 +49,6 @@ import Combine
         return MovieDetailViewModel(movie: movie)
     }
     
-    /// Main method call when the view appears
     func loadMovies() {
         self.getMovies().map({ movies in
             var newMovies = movies
@@ -59,8 +58,6 @@ import Combine
         $movies.assign(to: &self.$filteredMovies)
     }
     
-    /// Gets the list movies information from service
-    /// - Returns: Returns a publisher that never send error, on uscceess it will send `Movies` entity
     private func getMovies() -> AnyPublisher<Movies, Never> {
         return repository.getMovies()
     }

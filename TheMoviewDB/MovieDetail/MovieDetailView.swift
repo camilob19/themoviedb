@@ -136,7 +136,6 @@ struct MovieDetailScore: View {
         HStack {
             ProgressBar(progress: .constant(viewModel.score))
                 .frame(width: 50, height: 50, alignment: .center)
-            Text(Localized.score)
         }
         .frame(
             maxWidth: .infinity,
