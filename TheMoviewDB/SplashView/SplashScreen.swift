@@ -19,11 +19,11 @@ struct SplashScreen: View {
         } else {
             VStack {
                 VStack {
-                    Image("logo")
+                    ImageAsset.PopularMovies.logo
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.red)
-                    Text("Welcome")
+                    Text(Localized.welcome)
                         .padding()
                         .font(Font.headerFont)
                         .foregroundColor(.black.opacity(0.80))

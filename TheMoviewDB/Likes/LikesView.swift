@@ -38,14 +38,13 @@ struct LikesView: View {
                     }
                 }
                 .searchable(text: $viewModel.searchText,
-                            prompt: "Search for a movie, tv show, person......")
-                .navigationTitle("Likes")
-                .accentColor(.red)
+                            prompt: Localized.placeholderSearch)
+                .navigationTitle(Localized.likes)
+                .font(Font.bodyFont)
             }.onAppear {
                 self.viewModel.loadMovies()
             }
             .padding()
-            .foregroundColor(Color.black)
         }
     }
 }

@@ -14,7 +14,7 @@ protocol PopularMoviesRepositoryProtocol {
 
 class PopularMoviesRepository: PopularMoviesRepositoryProtocol {
     func getMovies() -> AnyPublisher<Movies, Never> {
-      guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=ebb7891ed43a06f1ce5197b786053857&language=en-US&page=1") else {
+        guard let url = URL(string: "\(MoviesConstans.api)\(MoviesConstans.apiKey)") else {
         return Just(Movies()).eraseToAnyPublisher()
       }
       
@@ -22,6 +22,7 @@ class PopularMoviesRepository: PopularMoviesRepositoryProtocol {
         .map(\.data)
         .decode(type: Movies.self, decoder: JSONDecoder())
         .replaceError(with: Movies())
+        .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
     }
 }

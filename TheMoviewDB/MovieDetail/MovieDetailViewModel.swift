@@ -40,11 +40,11 @@ import SwiftUI
     }
     
     nonisolated var backgroundImageURL: URL? {
-        URL(string: "https://www.themoviedb.org/t/p/w220_and_h330_face\(movie.backdropPath ?? "")")
+        URL(string: "\(MoviesConstans.baseUrl)\(movie.backdropPath ?? "")")
     }
     
     nonisolated var posterPath: URL? {
-        URL(string: "https://www.themoviedb.org/t/p/w220_and_h330_face\(movie.posterPath ?? "")")
+        URL(string: "\(MoviesConstans.baseUrl)\(movie.posterPath ?? "")")
     }
     
     nonisolated var score: Float {

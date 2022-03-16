@@ -16,3 +16,9 @@ extension Color {
                                  green: 180/255,
                                  blue: 228/255)
 }
+
+extension UIColor {
+    static let madison = UIColor(red: 3/255,
+                                 green: 37/255,
+                                 blue: 65/255, alpha: 1)
+}

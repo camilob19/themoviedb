@@ -8,6 +8,8 @@
 import Foundation
 
 struct Localized {
+    static let welcome = "Welcome".localized()
+    
     //TabView
     static let popularText = "popular".localized()
     static let favoriteText = "favorites".localized()
@@ -22,7 +24,6 @@ struct Localized {
     static let formatRating = "format_rating".localized()
     static let noReviews = "no_reviews".localized()
     static let released = "released".localized()
-    static let keyFavorites = "key_favorites".localized()
     static let likedMovie = "liked_movie".localized()
     static let dislikedMovie = "disliked_movie".localized()
     static let favorite = "favorite".localized()
@@ -34,4 +35,10 @@ struct Localized {
     static let idNoLikeFill = "id_no_like_fill".localized()
     static let likeButton = "like_button".localized()
     static let goBack = "go_back".localized()
+    
+    //LikesView
+    static let likes = "likes".localized()
+    
+    //FavoritesView
+    static let favorites = "Favorites".localized()
 }

@@ -38,9 +38,9 @@ struct FavoritesView: View {
                     }
                 }
                 .searchable(text: $viewModel.searchText,
-                            prompt: "Search for a movie, tv show, person......")
-                .navigationTitle("Favorites")
-                .accentColor(.red)
+                            prompt: Localized.placeholderSearch)
+                .navigationTitle(Localized.favorites)
+                .font(Font.bodyFont)
             }.onAppear {
                 self.viewModel.loadMovies()
             }

@@ -16,7 +16,10 @@ struct ImageAsset {
     }
     
     struct PopularMovies {
-        static let logoDB = Image("logo db")
+        static let logo = Image("logo splash")
+        static let logoDB = Image("logo")
+        static let logoDark = Image("logo2")
+        static let logoLigth = Image("logo tabview")
     }
     
     struct MovieDetail {

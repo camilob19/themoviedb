@@ -6,6 +6,9 @@
   
 */
 
+//SplashScreen
+"welcome" = "Welcome";
+
 //TabViewStrings
 "popular" = "Popular";
 "favorites" = "Favorites";
@@ -32,3 +35,8 @@
 "like_button" = "likeButton";
 "go_back" = "Go back";
 
+//LikesView
+"likes" = "Likes";
+
+//FavoritesView
+"favorites" = "Favorites";

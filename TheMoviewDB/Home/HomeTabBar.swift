@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeTabBar: View {
-    
     var body: some View {
         TabView {
             PopularMoviesView()
