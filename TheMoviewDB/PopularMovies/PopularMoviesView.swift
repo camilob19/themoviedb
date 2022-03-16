@@ -110,9 +110,11 @@ struct ScoreMovie: View {
         //ProgressBar(progress: $viewModel.$movies)
         ImageAsset.PopularMovies.logoDark
             .resizable()
-            .frame(width: 50, height: 50)
-            .padding(.bottom, 210)
+            .clipShape(Circle())
+            .frame(width: 40, height: 40)
+            .padding(.bottom, 230)
             .padding(.trailing, 20)
+           
             .frame(
                 maxWidth: .infinity,
                 alignment: .trailing
