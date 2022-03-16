@@ -26,8 +26,11 @@ struct ImageAsset {
         static let starIcon = Image(systemName: "star")
         static let clockIcon = Image(systemName: "clock")
         static let calendarIcon = Image(systemName: "calendar")
+        static let heartFilledIcon = Image(systemName: "heart.fill")
         static let heartIcon = Image(systemName: "heart")
-        static let handFilledIcon = Image(systemName: "hand.thumbsup.fill")
-        static let handIcon = Image(systemName: "hand.thumbsup")
+        static let handUpFilledIcon = Image(systemName: "hand.thumbsup.fill")
+        static let handUpIcon = Image(systemName: "hand.thumbsup")
+        static let handDownFilledIcon = Image(systemName: "hand.thumbsdown.fill")
+        static let handDownIcon = Image(systemName: "hand.thumbsdown")
     }
 }

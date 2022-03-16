@@ -12,7 +12,6 @@ struct SplashScreen: View {
     @State private var size = 0.8
     @State private var opacity = 0.5
     
-    // Customise your SplashScreen here
     var body: some View {
         if isActive {
             HomeTabBar()
@@ -31,7 +30,7 @@ struct SplashScreen: View {
                 .scaleEffect(size)
                 .opacity(opacity)
                 .onAppear {
-                    withAnimation(.easeIn(duration: 1.5)) {
+                    withAnimation(.easeIn(duration: 2.0)) {
                         self.size = 1
                         self.opacity = 1.00
                     }

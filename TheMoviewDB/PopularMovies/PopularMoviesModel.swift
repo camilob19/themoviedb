@@ -19,9 +19,9 @@ struct Movies: Codable {
         case totalResults = "total_results"
     }
     
-    init() {
+    /*init() {
         
-    }
+    }*/
 }
 
 // MARK: - Movie

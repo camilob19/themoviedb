@@ -10,19 +10,19 @@ import SwiftUI
 struct HomeTabBar: View {
     var body: some View {
         TabView {
-            PopularMoviesView()
+            PopularMoviesView(viewModel: PopularMoviesViewModel())
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    ImageAsset.TabView.houseIcon
                     Text(Localized.popularText)
                 }
-            FavoritesView()
+            FavoritesView(viewModel: FavoritesViewModel())
                 .tabItem {
-                    Image(systemName: "suit.heart.fill")
+                    ImageAsset.TabView.heartIcon
                     Text(Localized.favoriteText)
                 }
-            LikesView()
+            LikesView(viewModel: LikesViewModel())
                 .tabItem {
-                    Image(systemName: "hand.thumbsup.fill")
+                    ImageAsset.TabView.handIcon
                     Text(Localized.likeText)
                 }
         }

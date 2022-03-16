@@ -32,16 +32,20 @@ import Combine
         }
     }
     
+    init(repository: PopularMoviesRepositoryProtocol = PopularMoviesRepository()) {
+        self.repository = repository
+    }
+    
+    func  getScore(for movie: Movie) -> Float {
+        Float(movie.voteAverage ?? 0.0) / 10
+    }
+    
     func  getPosterPath(for movie: Movie) -> String {
         movie.posterPath ?? ""
     }
     
     func  getTitle(for movie: Movie) -> String {
         movie.title ?? ""
-    }
-    
-    init(repository: PopularMoviesRepositoryProtocol = PopularMoviesRepository()) {
-        self.repository = repository
     }
     
     func createModel(for movie: Movie) -> MovieDetailViewModel {
@@ -57,6 +61,7 @@ import Combine
     /// Gets the list movies information from service
     /// - Returns: Returns a publisher that never send error, on uscceess it will send `Movies` entity
     private func getMovies() -> AnyPublisher<Movies, Never> {
+        
         return repository.getMovies()
     }
 }

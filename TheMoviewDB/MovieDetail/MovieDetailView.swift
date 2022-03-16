@@ -91,14 +91,13 @@ struct MovieDetailGeneralInfo: View {
                             .frame(width: 130, height: 200, alignment: .center)
                             .cornerRadius(10)
                             .overlay(RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.orange, lineWidth: 1))
+                                .stroke(Color.orange, lineWidth: 1))
                             .shadow(radius: 10)
                     },
                     placeholder: {
                         ProgressView()
                     })
-                
-                    .padding()
+                .padding()
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
@@ -124,7 +123,6 @@ struct MovieDetailGeneralInfo: View {
             .foregroundColor(Color.white)
             .font(.normalFont)
         }
-        
         .padding(.top, -118)
         .frame(maxWidth: .infinity, alignment: .top)
         .background(Color.madison)
@@ -166,9 +164,15 @@ struct MovieDetailActionsView: View {
                 viewModel.setFavorites()
             } label: {
                 if viewModel.isFavorite() {
-                    Label(Localized.favorite, systemImage: "heart.fill")
+                    VStack {
+                        ImageAsset.MovieDetail.heartFilledIcon
+                        Text(Localized.favorite)
+                    }
                 } else {
-                    Label(Localized.favorite, systemImage: "heart")
+                    VStack {
+                        ImageAsset.MovieDetail.heartIcon
+                        Text(Localized.favorite)
+                    }
                 }
             }
             
@@ -176,11 +180,17 @@ struct MovieDetailActionsView: View {
                 viewModel.setLikeMovie()
             } label: {
                 if viewModel.getLikeMovie() {
-                    Label(Localized.like, systemImage: "hand.thumbsup.fill")
-                        .accessibilityIdentifier(Localized.idLikeFill)
+                    VStack {
+                        ImageAsset.MovieDetail.handUpFilledIcon
+                        Text(Localized.like)
+                    }
+                    .accessibilityIdentifier(Localized.idLikeFill)
                 } else {
-                    Label(Localized.like, systemImage: "hand.thumbsup")
-                        .accessibilityIdentifier(Localized.idNoLikeFill)
+                    VStack {
+                        ImageAsset.MovieDetail.handUpIcon
+                        Text(Localized.like)
+                    }
+                    .accessibilityIdentifier(Localized.idNoLikeFill)
                 }
             }
             .accessibilityIdentifier(Localized.likeButton)
@@ -189,9 +199,15 @@ struct MovieDetailActionsView: View {
                 viewModel.setDislikeMovie()
             } label: {
                 if viewModel.getdislikeMovie() {
-                    Label(Localized.dislike, systemImage: "hand.thumbsdown.fill")
+                    VStack {
+                        ImageAsset.MovieDetail.handDownFilledIcon
+                        Text(Localized.dislike)
+                    }
                 } else {
-                    Label(Localized.dislike, systemImage: "hand.thumbsdown")
+                    VStack {
+                        ImageAsset.MovieDetail.handDownIcon
+                        Text(Localized.dislike)
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PopularMoviesView: View {
-    @StateObject var viewModel: PopularMoviesViewModel = PopularMoviesViewModel()
+    @StateObject var viewModel: PopularMoviesViewModel
     
     var columns: [GridItem] = [
         GridItem(.flexible()),
@@ -31,8 +31,11 @@ struct PopularMoviesView: View {
                                             .font(.bodyFont)
                                             .lineLimit(2)
                                             .padding()
-                                            .padding(.top, -46)
+                                            .padding(.top, -50)
                                         Spacer()
+                                    }
+                                    VStack {
+                                        ScoreMovie()
                                     }
                                 }
                                 .frame(minHeight: 200, maxHeight: 300, alignment: .center)
@@ -79,7 +82,6 @@ struct MovieCell: View {
 }
 
 struct CustomNavBar: View {
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -101,8 +103,25 @@ struct CustomNavBar: View {
     }
 }
 
+struct ScoreMovie: View {
+   // @StateObject var viewModel: PopularMoviesViewModel
+    
+    var body: some View {
+        //ProgressBar(progress: $viewModel.$movies)
+        ImageAsset.PopularMovies.logoDark
+            .resizable()
+            .frame(width: 50, height: 50)
+            .padding(.bottom, 210)
+            .padding(.trailing, 20)
+            .frame(
+                maxWidth: .infinity,
+                alignment: .trailing
+            )
+    }
+}
+
 struct PopularMoviesView_Previews: PreviewProvider {
     static var previews: some View {
-        PopularMoviesView()
+        PopularMoviesView(viewModel: PopularMoviesViewModel())
     }
 }
